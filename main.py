@@ -40,6 +40,7 @@ def main():
 	game_over = False
 
 	while playing:
+
 		if score > high_score:
 			high_score = score
 			with open(high_score_file, 'w') as file:
@@ -66,6 +67,7 @@ def main():
 			updatable.add(player_shot)
 			drawable.add(player_shot)
 		updatable.update(dt)
+		asteroids.update(dt)
 
 		
 		for asteroid in asteroid_field.asteroids:
@@ -81,11 +83,18 @@ def main():
 				#sys.exit() #hashedout to work on game_over_screen
 		
 
-		for asteroid in asteroid_field.asteroids:
-			for shot in shots:
+		for shot in shots:
+			for asteroid in asteroid_field.asteroids:
 				if shot.check_collision(asteroid):
+					print(f"Asteroids group id in main: {id(asteroids)}")
 					shot.kill()
-					asteroid.kill()
+					new_asteroids = asteroid.split()
+					if new_asteroids:
+						asteroids.add(new_asteroids)
+						drawable.add(new_asteroids)
+						updatable.add(new_asteroids)
+						asteroid_field.add_asteroids(new_asteroids)
+						print("added")
 					score += 50
 					print("-----------------------------------------")
 					print(f"- You hit an asteroid! +50 pts -> {score}   -")

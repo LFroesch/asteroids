@@ -37,7 +37,7 @@ class AsteroidField(pygame.sprite.Sprite):
 
     def spawn(self, radius, position, velocity):
         #print(f"Spawning asteroid: radius={radius}, position={position}, velocity={velocity}") #FULL DEBUG
-        print(f"Spawning Asteroid!") #GUI Friendly
+        #print(f"Spawning Asteroid!") #GUI Friendly #Hashed out for clarity
         asteroid = Asteroid(position.x, position.y, radius)
         asteroid.velocity = velocity
         self.asteroids.add(asteroid)
@@ -57,3 +57,7 @@ class AsteroidField(pygame.sprite.Sprite):
             position = edge[1](random.uniform(0, 1))
             kind = random.randint(1, ASTEROID_KINDS)
             self.spawn(ASTEROID_MIN_RADIUS * kind, position, velocity)
+
+    def add_asteroids(self, new_asteroids):
+        for asteroid in new_asteroids:
+            self.asteroids.add(asteroid)  # Assuming you're using a sprite group

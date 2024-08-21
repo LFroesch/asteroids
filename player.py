@@ -57,7 +57,7 @@ class Player(CircleShape):
 		if self.shoot_timer > 0:
 			return
 		new_shot = Shot(self.position.x, self.position.y, self.rotation)
-		self.shoot_timer = .3
+		self.shoot_timer = .25
 		return new_shot
 		
 		
