@@ -86,7 +86,6 @@ def main():
 		for shot in shots:
 			for asteroid in asteroid_field.asteroids:
 				if shot.check_collision(asteroid):
-					print(f"Asteroids group id in main: {id(asteroids)}")
 					shot.kill()
 					new_asteroids = asteroid.split()
 					if new_asteroids:
@@ -94,10 +93,9 @@ def main():
 						drawable.add(new_asteroids)
 						updatable.add(new_asteroids)
 						asteroid_field.add_asteroids(new_asteroids)
-						print("added")
-					score += 50
+					score += 100
 					print("-----------------------------------------")
-					print(f"- You hit an asteroid! +50 pts -> {score}   -")
+					print(f"- You hit an asteroid! +100 pts -> {score}  -")
 					print("-----------------------------------------")
 
 		drawable.draw(screen)

@@ -42,13 +42,13 @@ class Player(CircleShape):
 			if new_shot:
 				pass
 			#print(f"Shot fired from position: {self.position} with direction: {self.direction} and rotation: {self.rotation}")
-		if keys[pygame.K_a]:
+		if keys[pygame.K_a] or keys[pygame.K_LEFT]:
 			self.rotation -= PLAYER_TURN_SPEED * dt
-		if keys[pygame.K_d]:
+		if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
 			self.rotation += PLAYER_TURN_SPEED * dt
-		if keys[pygame.K_w]:
+		if keys[pygame.K_w] or keys[pygame.K_UP]:
 			self.move(dt)
-		if keys[pygame.K_s]:
+		if keys[pygame.K_s] or keys [pygame.K_DOWN]:
 			self.move(-dt)
 		return new_shot
 	
@@ -57,7 +57,7 @@ class Player(CircleShape):
 		if self.shoot_timer > 0:
 			return
 		new_shot = Shot(self.position.x, self.position.y, self.rotation)
-		self.shoot_timer = .25
+		self.shoot_timer = .1
 		return new_shot
 		
 		

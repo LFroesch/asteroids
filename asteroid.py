@@ -33,8 +33,8 @@ class Asteroid(CircleShape):
         new_asteroid2 = Asteroid(self.position.x, self.position.y, new_radius)
         new_asteroid1.velocity = new_velocity1
         new_asteroid2.velocity = new_velocity2
-        print("-      Created new asteroids at:        -")
-        print(f"- {new_asteroid1.position}+{new_asteroid2.position} -")
+        #print("-      Created new asteroids at:        -")
+        #print(f"- {new_asteroid1.position}+{new_asteroid2.position} -") Hashed out for clean GUI
         new_asteroids = (new_asteroid1, new_asteroid2)
         return new_asteroids
         
