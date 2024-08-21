@@ -1,17 +1,16 @@
-from circleshape import *
+from circleshape import CircleShape
 from constants import *
 import pygame
 import math
 
-class Player(CircleShape, pygame.sprite.Sprite):
+class Player(CircleShape):
 	def __init__(self, x, y):
 		super().__init__(x, y, PLAYER_RADIUS)
-		pygame.sprite.Sprite.__init__(self)
-		self.position = pygame.math.Vector2(x, y)
 		self.rotation = 0
 		self.image = pygame.Surface((PLAYER_RADIUS*2, PLAYER_RADIUS*2), pygame.SRCALPHA)
 		self.image.fill((255, 255, 255))  # White color
 		self.rect = self.image.get_rect(center=(x, y))
+		self.position = pygame.math.Vector2(x, y)
 		self.draw_triangle()
 	
 	def draw_triangle(self):

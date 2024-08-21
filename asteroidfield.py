@@ -31,7 +31,7 @@ class AsteroidField(pygame.sprite.Sprite):
     def __init__(self, asteroids, updatable, drawable):
         pygame.sprite.Sprite.__init__(self)
         self.spawn_timer = 0.0
-        self.asteroids = asteroids
+        self.asteroids = pygame.sprite.Group()
         self.updatable = updatable
         self.drawable = drawable
 
