@@ -68,9 +68,20 @@ def main():
 				print("-----------------------------------------")
 				print("- Game over!!!                          -")
 				print(f"- Your score was {score}                    -")
+				print(f"- High score is {high_score}                    -")
 				print("- type python3 main.py to play again :) -")
 				print("-----------------------------------------")
 				sys.exit()
+		for asteroid in asteroid_field.asteroids:
+			for shot in shots:
+				if shot.check_collision(asteroid):
+					shot.kill()
+					asteroid.kill()
+					score += 50
+					print("-----------------------------------------")
+					print(f"- You hit an asteroid! +50 pts -> {score}   -")
+					print("-----------------------------------------")
+
 		drawable.draw(screen)
 		score += int(1)
 		dt = (clock.tick(60) / 1000)
