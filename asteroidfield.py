@@ -36,7 +36,8 @@ class AsteroidField(pygame.sprite.Sprite):
         self.drawable = drawable
 
     def spawn(self, radius, position, velocity):
-        print(f"Spawning asteroid: radius={radius}, position={position}, velocity={velocity}")
+        #print(f"Spawning asteroid: radius={radius}, position={position}, velocity={velocity}") #FULL DEBUG
+        print(f"Spawning Asteroid!") #GUI Friendly
         asteroid = Asteroid(position.x, position.y, radius)
         asteroid.velocity = velocity
         self.asteroids.add(asteroid)
