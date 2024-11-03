@@ -107,6 +107,12 @@ def main():
 		pygame.time.Clock().tick(60)
 		
 def show_game_over_screen(screen, score, high_score, shots, asteroids):
+	print("-----------------------------------------")
+	print("- Game over!!!                          -")
+	print(f"- Your score was {score}                   -")
+	print(f"- High score is {high_score}                    -")
+	print("- type R to play again or Q to quit     -")
+	print("-----------------------------------------")
 	font_h = pygame.font.SysFont(None, 72)
 	font_b = pygame.font.SysFont(None, 36)
 	screen.fill((0, 0, 0))
@@ -158,6 +164,7 @@ def reset_game(shots, asteroids):
 	print("Restting field")
 	shots.empty()
 	asteroids.empty()
+	# LIVES = 3 
 	main()
 
 if __name__ == "__main__":

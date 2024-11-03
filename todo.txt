@@ -1,0 +1,8 @@
+# add menu w/ options
+# add lives / hp / hp regen
+# add background / strata projectiles that don't collide
+# add panning / move camera?
+# add powerups / tripleshot triangular / shield
+# add different shot types with different buttons and effects, if its a big it can kill a big, if its a small it explodes or something
+# powerup shots wipe a section of the map or something? 
+# add UI / ammo / hp

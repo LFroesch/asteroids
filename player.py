@@ -2,7 +2,9 @@ from circleshape import CircleShape
 from constants import *
 import pygame
 import math
-from shot import Shot
+import os
+import sys
+from shot import Shot, Shot2, Shot3
 
 class Player(CircleShape):
 	def __init__(self, x, y):
@@ -38,18 +40,28 @@ class Player(CircleShape):
 		keys = pygame.key.get_pressed()
 
 		if keys[pygame.K_SPACE]:
-			new_shot = self.shoot()
+			new_shot = self.shoot2()
 			if new_shot:
 				pass
 			#print(f"Shot fired from position: {self.position} with direction: {self.direction} and rotation: {self.rotation}")
-		if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+		if keys[pygame.K_f]:
+			new_shot = self.shoot()
+			if new_shot:
+				pass
+		if keys[pygame.K_g]:
+			new_shot = self.shoot3()
+			if new_shot:
+				pass
+		if keys[pygame.K_a] or keys[pygame.K_LEFT] or keys[pygame.K_q]:
 			self.rotation -= PLAYER_TURN_SPEED * dt
-		if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+		if keys[pygame.K_d] or keys[pygame.K_RIGHT] or keys[pygame.K_e]:
 			self.rotation += PLAYER_TURN_SPEED * dt
 		if keys[pygame.K_w] or keys[pygame.K_UP]:
 			self.move(dt)
 		if keys[pygame.K_s] or keys [pygame.K_DOWN]:
 			self.move(-dt)
+		if keys[pygame.K_ESCAPE]:
+			sys.exit()
 		return new_shot
 	
 	def shoot(self):
@@ -57,6 +69,22 @@ class Player(CircleShape):
 		if self.shoot_timer > 0:
 			return
 		new_shot = Shot(self.position.x, self.position.y, self.rotation)
+		self.shoot_timer = .1
+		return new_shot
+	
+	def shoot2(self):
+		#Create and return a shot2 (BIG BULLET) instance located at the player's position
+		if self.shoot_timer > 0:
+			return
+		new_shot = Shot2(self.position.x, self.position.y, self.rotation)
+		self.shoot_timer = .1
+		return new_shot
+	
+	def shoot3(self):
+		#Create and return a shot3 (SMALL BULLET) instance located at the player's position
+		if self.shoot_timer > 0:
+			return
+		new_shot = Shot3(self.position.x, self.position.y, self.rotation)
 		self.shoot_timer = .1
 		return new_shot
 		
