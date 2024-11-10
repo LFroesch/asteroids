@@ -10,7 +10,7 @@ import os
 
 def main():
 	print("Game loop running")
-	os.environ['SDL_VIDEO_WINDOW_POS'] = "1920,0"
+	os.environ['SDL_VIDEO_WINDOW_POS'] = "1920,0" # For Dual Screen - Make Toggleable
 	pygame.init()
 	print("Starting asteroids!")
 	print(f"Screen width: {SCREEN_WIDTH}")
@@ -29,6 +29,9 @@ def main():
 	clock = pygame.time.Clock()
 	font = pygame.font.SysFont(None, 36)
 	high_score_file = "high_score.txt"
+	background = pygame.image.load("bg.png").convert()
+	background = pygame.transform.scale(background, (screen.get_width(), screen.get_height()))
+
 	try:
 		with open(high_score_file, 'r') as file:
 			high_score = int(file.read().strip())
@@ -50,16 +53,28 @@ def main():
     			if event.type == pygame.QUIT:
         			return
 		screen.fill((0, 0, 0))
+		screen.blit(background, (0, 0))
+		margin = 10
+		screen_width = screen.get_width()
+		screen_height = screen.get_height()
+
+		lives_text = f"Lives: {player.lives}"
+		lives_surface = font.render(lives_text, True, (255, 255, 255))
+		text_width = lives_surface.get_width()
+		text_height = lives_surface.get_height()
+		text_x = (screen_width - text_width) // 2  # Center horizontally
+		text_y = screen_height - text_height - margin  # 10 pixels from bottom
+		
 
 		high_score_text = f"High Score: {high_score}"
 		high_score_surface = font.render(high_score_text, True, (255, 255, 255))
 		high_score_rect = high_score_surface.get_rect()
-		margin = 10
-		high_score_rect.topleft = (10, screen.get_height() - high_score_rect.height - margin)		
+		high_score_rect.topleft = (margin, screen.get_height() - high_score_rect.height - margin)
+
 		score_text = f"Score: {score}"
 		score_surface = font.render(score_text, True, (255, 255, 255))
 		text_rect = score_surface.get_rect()
-		text_rect.topright = (screen.get_width() - 10, 10)
+		text_rect.topright = (screen.get_width() - margin, margin)
 
 		player_shot = player.handle_input(dt)
 		if player_shot:
@@ -70,18 +85,16 @@ def main():
 		asteroids.update(dt)
 
 		
-		for asteroid in asteroid_field.asteroids:
-			if player.check_collision(asteroid):
+		# Check collision between player and asteroids
+		asteroid_hits = pygame.sprite.spritecollide(player, asteroid_field.asteroids, True)  # True means kill the asteroid on collision
+		if asteroid_hits:  # If there were any collisions
+			player.lives -= 1
+			print("-----------------------------------------")
+			print(f"|           -1 Life! -> {player.lives} Left          -")
+			print("-----------------------------------------")
+			if player.lives == 0:
 				game_over = True
 				playing = show_game_over_screen(screen, score, high_score, shots, asteroids)
-				#print("-----------------------------------------")
-				#print("- Game over!!!                          -")
-				#print(f"- Your score was {score}                    -")
-				#print(f"- High score is {high_score}                    -")
-				#print("- type python3 main.py to play again :) -")
-				#print("-----------------------------------------")
-				#sys.exit() #hashedout to work on game_over_screen
-		
 
 		for shot in shots:
 			for asteroid in asteroid_field.asteroids:
@@ -99,10 +112,13 @@ def main():
 					print("-----------------------------------------")
 
 		drawable.draw(screen)
+		for sprite in drawable:
+			sprite.draw(screen)
 		score += int(1)
 		dt = (clock.tick(60) / 1000)
 		screen.blit(high_score_surface, high_score_rect)
 		screen.blit(score_surface, text_rect)
+		screen.blit(lives_surface, (text_x, text_y))
 		pygame.display.flip()
 		pygame.time.Clock().tick(60)
 		
@@ -164,7 +180,6 @@ def reset_game(shots, asteroids):
 	print("Restting field")
 	shots.empty()
 	asteroids.empty()
-	# LIVES = 3 
 	main()
 
 if __name__ == "__main__":

@@ -5,21 +5,33 @@ import math
 import random
 
 class Asteroid(CircleShape):
+    original_image = None
+    
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
+        if Asteroid.original_image is None:
+            Asteroid.original_image = pygame.image.load("asteroid.png").convert_alpha()
         self.velocity = pygame.Vector2(0, 0)
         self.position = pygame.math.Vector2(x, y)
         self.radius = radius
-        self.image = pygame.Surface((radius * 2, radius * 2), pygame.SRCALPHA)
-        pygame.draw.circle(self.image, (255, 255, 255), (radius, radius), radius, 2)
+        scaled_size = int(radius * 2)
+        self.image = pygame.transform.scale(Asteroid.original_image, (scaled_size, scaled_size))
         self.rect = self.image.get_rect(center = (x, y))
+        self.rotation_speed = random.uniform(-90, 90)  # degrees per second
+        self.angle = 0
+        self.original_scaled = self.image
 	
     def draw(self, screen):
-        surface.blit(self.image, self.rect)
+        #print("Asteroid draw called")
+        super().draw(screen)
+        screen.blit(self.image, self.rect)
     
     def update(self, dt):
-         self.position += self.velocity * dt
-         self.rect.center = self.position
+        self.position += self.velocity * dt
+        self.rect.center = self.position
+        self.angle += self.rotation_speed * dt
+        self.image = pygame.transform.rotate(self.original_scaled, self.angle)
+        self.rect = self.image.get_rect(center=self.rect.center)
     
     def split(self):
         self.kill()

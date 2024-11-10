@@ -17,6 +17,7 @@ class Player(CircleShape):
 		self.draw_triangle()
 		self.direction = pygame.Vector2(0,0)
 		self.shoot_timer = 0
+		self.lives = 3
 	
 	def draw_triangle(self):
 		self.image.fill((0, 0, 0, 0))
