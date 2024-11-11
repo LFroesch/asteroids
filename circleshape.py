@@ -17,7 +17,7 @@ class CircleShape(pygame.sprite.Sprite):
     def draw(self, screen):
         # debug circle
         # print("CircleShape draw called", self.position, self.radius)
-        # pygame.draw.circle(screen, (255, 0, 0), (int(self.position.x), int(self.position.y)), int(self.radius), 1)
+        #pygame.draw.circle(screen, (255, 0, 0), (int(self.position.x), int(self.position.y)), int(self.radius), 1)
         
         pass
 

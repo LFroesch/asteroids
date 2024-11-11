@@ -7,10 +7,16 @@ Big / longer cd, smaller no cd or something
 
 # Better UI - Ammo / Rectangles etc
 Game over screen
-add menu w/ options
+add pause menu w/ options
 
 # HP instead of lives?
 
 # add background / strata projectiles that don't collide
 
 # Open world vs locked?
+
+# Sound
+Life lost sound
+BG Music
+Explosion Sound
+Power Up Sound
