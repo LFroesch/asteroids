@@ -64,6 +64,7 @@ class Player(CircleShape):
 	def handle_input(self, dt):
 		new_shot = None
 		keys = pygame.key.get_pressed()
+		mouse_buttons = pygame.mouse.get_pressed()
 
 		# Handle rotation
 		if keys[pygame.K_a] or keys[pygame.K_LEFT] or keys[pygame.K_q]:
@@ -78,7 +79,7 @@ class Player(CircleShape):
 			self.move(-dt)
 
     	# Handle shooting
-		if keys[pygame.K_SPACE]:
+		if keys[pygame.K_SPACE] or mouse_buttons[2]:
 			new_shot = self.shoot2()
 		elif keys[pygame.K_f]:
 			new_shot = self.shoot()

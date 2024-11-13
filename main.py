@@ -175,7 +175,7 @@ def main():
 		for shot in shots:
 			for asteroid in asteroid_field.asteroids:
 				if shot.check_collision(asteroid):
-					hit_sound.play()
+					#hit_sound.play()
 					shot.kill()
 					modifier += .05
 					kills += 1
