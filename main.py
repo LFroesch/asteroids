@@ -13,11 +13,22 @@ def main():
 	print(f"Screen width: {SCREEN_WIDTH}")
 	print(f"Screen height: {SCREEN_HEIGHT}")
 
-	os.environ['SDL_VIDEO_DISPLAY'] = '1'
-	os.environ['SDL_VIDEO_WINDOW_POS'] = '1920,0'	
-	screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
-
 	pygame.init()
+	# Get information about the displays
+	num_displays = pygame.display.get_num_displays()
+	print(f"Number of displays detected: {num_displays}")
+    
+    # Initialize the display before setting the mode
+	pygame.display.init()
+    
+    # Create the window without setting it to fullscreen first
+	screen = pygame.display.set_mode((1920, 1080))
+    
+    # Move the window to the primary display (0,0 coordinates)
+	pygame.display.set_window_position((0, 0))
+    
+    # Now set to fullscreen
+	screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN)
 	pygame.mixer.music.load("assets/HeavyEyes_Biome.mp3")
 	pygame.mixer.music.play()
 	pygame.mixer.music.set_volume(.1)
