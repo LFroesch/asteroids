@@ -16,7 +16,6 @@ class Player(CircleShape):
 			Player.original_image = pygame.image.load("assets/spaceship.png").convert_alpha()
 			
 			Player.original_image = pygame.transform.scale(Player.original_image, (scaled_size, scaled_size))
-			print("Loaded spaceship image successfully")
 		self.rotation = 0
 		self.screen = screen
 

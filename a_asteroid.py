@@ -11,7 +11,6 @@ class Asteroid(CircleShape):
         super().__init__(x, y, radius)
         if Asteroid.original_image is None:
             Asteroid.original_image = pygame.image.load("assets/asteroid.png").convert_alpha()
-            print("Loaded asteroid image successfully")
         scaled_size = int(radius * 3.25)
         self.image = pygame.transform.scale(Asteroid.original_image, (scaled_size, scaled_size))
         self.velocity = pygame.Vector2(0, 0)

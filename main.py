@@ -10,8 +10,6 @@ import os
 
 def main():
 	print("Starting asteroids!")
-	print(f"Screen width: {SCREEN_WIDTH}")
-	print(f"Screen height: {SCREEN_HEIGHT}")
 
 	pygame.init()
 	# Get information about available displays
@@ -53,10 +51,9 @@ def main():
 	background = pygame.transform.scale(background, (screen.get_width(), screen.get_height()))
 
 	try:
-		print(f"Attempting to open {high_score_file}")
 		with open(high_score_file, 'r') as file:
 			content = file.read().strip()
-			print(f"File content: {content}")
+			print(f"Highest Score: {content}")
 			high_score = int(content)
 			old_highscore = high_score
 	except (FileNotFoundError, ValueError) as e:
@@ -64,10 +61,9 @@ def main():
 		high_score = 0
 		old_highscore = 0
 	try:
-		print(f"Attempting to open {highest_kills}")
 		with open(highest_kills, 'r') as file:
 			content = file.read().strip()
-			print(f"File content: {content}")
+			print(f"Highest Kills: {content}")
 			highest_kills = int(content)
 			old_highest_kills = highest_kills
 	except (FileNotFoundError, ValueError) as e:
@@ -75,10 +71,9 @@ def main():
 		highest_kills = 0
 		old_highest_kills = 0
 	try:
-		print(f"Attempting to open {highest_modifier}")
 		with open(highest_modifier, 'r') as file:
 			content = file.read().strip()
-			print(f"File content: {content}")
+			print(f"Highest Modifier: {content}")
 			highest_modifier = int(content)
 			old_highest_modifier = highest_modifier
 	except (FileNotFoundError, ValueError) as e:
@@ -97,7 +92,11 @@ def main():
 	
 
 	while playing:
-
+		if not paused:
+			dt = clock.tick(60) / 1000  # Update time when not paused
+		else:
+			clock.tick(60)  # Prevent the game from running too fast while paused
+			dt = 0  # Stop time updates while paused
 		if score > high_score:
 			high_score = score
 		if kills > highest_kills:
@@ -215,7 +214,7 @@ def main():
 		score += int(1 * modifier)
 		if player.lives < 100:
 			player.lives += .05
-		dt = (clock.tick(60) / 1000)
+		
 		screen.blit(high_score_surface, high_score_rect)
 		screen.blit(score_surface, text_rect)
 		screen.blit(modifier_surface, modifier_rect)
